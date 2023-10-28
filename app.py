@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 from flask import Flask, request, jsonify
 from urllib.parse import urlparse, parse_qs
 from endpoints.wordDetection.OCR import ocr
+from endpoints.translation.translator import translate
 
 app = Flask(__name__)
 api = Api(app)
@@ -28,8 +29,19 @@ class OCR(Resource):
         else:
             return jsonify({"error": text_response.data.decode('utf-8')}), text_response.status_code
 
+class Translator(Resource):
+    def post(self):
+        translation = translate(request.args["phrase"], "en")
+
+        return jsonify({"translation": translation})
+
+        
+
+
 
 api.add_resource(OCR, '/ocr')
+
+api.add_resource(Translator, '/translator')
 
 if __name__ == '__main__':
     app.run(use_reloader=True, port=5000, threaded=True)
