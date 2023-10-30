@@ -31,6 +31,7 @@ class OCR(Resource):
 
 class Translator(Resource):
     def post(self):
+        
         translation = translate(request.args["phrase"], "en")
 
         return jsonify({"translation": translation})
