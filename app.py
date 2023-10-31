@@ -34,7 +34,7 @@ class Translator(Resource):
         
         translation = translate(request.args["phrase"], "en")
 
-        return jsonify({"translation": translation})
+        return translation
 
         
 
