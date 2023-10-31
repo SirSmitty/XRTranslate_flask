@@ -30,7 +30,7 @@ class OCR(Resource):
             return jsonify({"error": text_response.data.decode('utf-8')}), text_response.status_code
 
 class Translator(Resource):
-    def post(self):
+    def get(self):
         
         translation = translate(request.args["phrase"], "en")
 
